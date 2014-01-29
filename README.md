@@ -17,9 +17,9 @@ Most of the checks and features are inspired by the examples in the [git documen
 ```
 user@host:~/my_project> git commit -m "misc fixes"
 [POLICY] Fail: Your commit message is not formatted properly.
-# Commit message rules:
-# * The msg must start with a ticket reference, eg: [mantis: 12345] [HRB-123] or [untracked]
-# * The commit message must be at least 20 characters long
+The format for commit messages is as follows:
+ * The message must start with a ticket ref, e.g. [mantis: 12345] [HRB-123] or [untracked]
+ * The commit message must be at least 20 characters long
 ```
 
 #### Preventing merge conflicts from being accidentally committed
