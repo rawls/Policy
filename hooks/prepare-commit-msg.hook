@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require 'pathname'
+BASE = Pathname.new(__FILE__).realpath.parent.parent.parent unless defined? BASE
+$LOAD_PATH << BASE + 'git_policy' + 'lib'
+require 'checks/commit_message'
+
+message_file = ARGV[0]
+message = File.read(message_file)
+
+Checks::CommitMessage.describe_in message_file

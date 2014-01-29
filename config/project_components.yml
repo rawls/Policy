@@ -1,0 +1,7 @@
+Models: !ruby/regexp '/app\/models|lib\/models/'
+Controllers: !ruby/regexp '/app\/controllers/'
+Views: !ruby/regexp '/app\/views/'
+Modules: !ruby/regexp '/modules/'
+Assets: !ruby/regexp '/app\/assets|public/'
+Tests: !ruby/regexp '/test|spec/'
+Shared: !ruby/regexp '/lib\/shared/'

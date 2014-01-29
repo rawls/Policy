@@ -1,0 +1,78 @@
+#!/usr/bin/env ruby
+# Encoding: utf-8
+# Name: Install Hooks
+# Author: Will Brown
+# Created: 2014-01-27
+# Description:
+#   A script which installs git hooks into your local git repository. These
+#   hooks should help prevent you making basic git handling mistakes.
+#
+#   This script should be run once when you first checkout the project. It
+#   should not need to be run again.
+#
+#   You can pass in the --delete option to this script to delete the hooks
+#
+#   For more information please take a look at the hooks themselves.
+
+%w(pathname fileutils optparse).each { |lib| require lib }
+BASE = Pathname.new(__FILE__).realpath.parent.parent unless defined? BASE
+
+force, create_dir, del_hooks = false, false, false
+OptionParser.new do |opts|
+  opts.banner = 'Usage: install_hooks'
+  opts.on('-f', '--force', 'force over-write existing hooks') { force = true }
+  opts.on('-c', '--create', 'create .git/hooks folder')  { create_dir = true }
+  opts.on '-d', '--delete', 'delete all git hooks')      { del_hooks = true  }
+  opts.on('-h', '--help', 'this message')                { puts opts; exit 1 }
+end.parse!
+
+# Check for the existence of the git hooks directory
+hooks_dir = BASE + '.git' + 'hooks'
+unless File.exists?(hooks_dir)
+  if create_dir
+    puts "Creating #{hooks_dir}"
+    FileUtils.mkdir_p(hooks_dir)
+  else
+    abort "#{hooks_dir} not found. Use the --create option to create it."
+  end
+end
+
+# Delete any symlinks in the main project's .git/hooks directory
+if del_hooks
+  puts 'Warning: This will delete all your symlinked git hooks (including any'
+  puts 'hooks you have manually symlinked to your project).'
+  puts 'Please hit [enter] to continue or Ctrl+c to abort...'
+  gets
+  Dir.glob(hooks_dir + '*').each do |hook|
+    FileUtils.rm hook if File.symlink? hook
+    puts "Deleted #{hook}"
+  end
+  puts "Finished"
+  exit 0
+end
+
+# Check for the existence of the git hooks directory
+hooks_dir = BASE + '.git' + 'hooks'
+unless File.exists?(hooks_dir)
+  if create_dir
+    puts "Creating #{hooks_dir}"
+    FileUtils.mkdir_p(hooks_dir)
+  else
+    abort "#{hooks_dir} not found. Use the --create option to create it."
+  end
+end
+
+puts 'Looking for new git hooks'
+available_hooks = Pathname.new(__FILE__).realpath.parent + 'hooks' + '*.hook'
+Dir.glob(available_hooks).each do |hook|
+  file_path = Pathname.new(hook)
+  # The .hook files must be executable
+  FileUtils.chmod 0755, file_path
+  link_path = (hooks_dir + file_path.basename).to_s.gsub(/\.hook$/, '')
+  FileUtils.rm(link_path) if force && File.exists?(link_path)
+  unless File.exists?(link_path)
+    FileUtils.ln_s(file_path, link_path)
+    puts "Installed #{file_path.basename} to #{hooks_dir}"
+  end
+end
+puts 'Finished installing git hooks'

@@ -1,0 +1,5 @@
+Golang: !ruby/regexp '/\.go/i'
+Ruby: !ruby/regexp '/((^Rakefile)|(\.(rb|ru))$)/i'
+Javascript: !ruby/regexp '/\.js$/i'
+HTML: !ruby/regexp '/\.(htm|html|erb|haml)$/i'
+CSS: !ruby/regexp '/\.(css|scss)/i'
