@@ -13,23 +13,11 @@ module Checks
     def self.apply(commit_msg)
       unless COMMIT_MSG_RULE.match(commit_msg) && commit_msg.length > MIN_MSG_LENGTH
         puts '[POLICY] Fail: Your commit message is not formatted properly.'
-        puts describe
+        puts '[POLICY] The format for commit messages is as follows:'
+        puts '[POLICY] * The message must start with a ticket ref, e.g. [mantis: 12345] [HRB-123] or [untracked]'
+        puts '[POLICY] * The commit message must be at least 20 characters long'
         exit 1
       end
-    end
-
-    def self.describe_in(message_file)
-      File.open(message_file, 'a') { |f| f.puts describe }
-    end
-
-    private
-
-    def self.describe
-      <<-eos
-# The format for commit messages is as follows:
-# * The message must start with a ticket ref, e.g. [mantis: 12345] [HRB-123] or [untracked]
-# * The commit message must be at least 20 characters long
-      eos
     end
   end
 end

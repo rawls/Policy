@@ -15,7 +15,7 @@ module Checks
       Util.staged_files.each do |file_path|
         file = File.read(file_path)
         if file.match MERGE_CONFLICT_PATTERN
-          puts "[POLICY] Fail: You are committing a merge conflict in #{file_path}"
+          puts "[POLICY] Fail: You are committing a merge conflicted file: #{file_path}"
           exit 1
         end
       end
