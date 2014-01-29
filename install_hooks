@@ -22,7 +22,7 @@ OptionParser.new do |opts|
   opts.banner = 'Usage: install_hooks'
   opts.on('-f', '--force', 'force over-write existing hooks') { force = true }
   opts.on('-c', '--create', 'create .git/hooks folder')  { create_dir = true }
-  opts.on '-d', '--delete', 'delete all git hooks')      { del_hooks = true  }
+  opts.on('-d', '--delete', 'delete all git hooks')      { del_hooks = true  }
   opts.on('-h', '--help', 'this message')                { puts opts; exit 1 }
 end.parse!
 
