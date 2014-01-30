@@ -25,7 +25,8 @@ The format for commit messages is as follows:
 #### Preventing merge conflicts from being accidentally committed
 ```
 $ git commit app/controllers/application_controller.rb -m "[mantis: 12345] Resolved (most of) a merge conflict"
-[POLICY] Fail: You are committing a merge conflicted file: /home/user/my_project/app/controllers/application_controller.rb
+[POLICY] Fail: You are committing a merge conflicted file: 
+  /home/user/my_project/app/controllers/application_controller.rb
 ```
 
 #### Blocking accidental commits to restricted branches
