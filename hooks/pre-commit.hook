@@ -6,4 +6,5 @@ require 'checks/merge_conflict'
 require 'checks/restricted_branches'
 
 Checks::MergeConflict.apply
+Check::GoFormat.apply
 Checks::RestrictedBranches.apply
