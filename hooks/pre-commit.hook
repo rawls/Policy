@@ -4,7 +4,8 @@ BASE = Pathname.new(__FILE__).realpath.parent.parent.parent
 $LOAD_PATH << Pathname.new(__FILE__).realpath.parent.parent + 'lib'
 require 'checks/merge_conflict'
 require 'checks/restricted_branches'
+require 'checks/go_format'
 
 Checks::MergeConflict.apply
-Check::GoFormat.apply
+Checks::GoFormat.apply
 Checks::RestrictedBranches.apply

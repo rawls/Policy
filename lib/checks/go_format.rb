@@ -2,7 +2,7 @@
 require 'util'
 
 module Checks
-  # Author: David Tucker
+    # Author: David Tucker
     # Created: 2014/01/28
     # Description:
     #   Enforces go formatting of go files
